@@ -38,8 +38,6 @@ public class MainActivity extends AppCompatActivity {
         inputValue = findViewById(R.id.inputValue);
         recyclerView = findViewById(R.id.recyclerView);
 
-        DataItem person = new DataItem("John", 55);
-
         for (int i = 0; i < testdata.length; i++) {
             dataItems.add(new DataItem(names[i], testdata[i]));
         }
@@ -58,10 +56,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         outputText.setText(String.format(
-                "Medelvärde: %.2f\nMedian: %.2f\nStandardavvikelse: %.2f",
+                "Medelvärde: %.2f\nMedian: %.2f\nStandardavvikelse: %.2f\nFirst Quartile: %.2f\nThird Quartile: %.2f\nInterquartile Range: %.2f",
                 Statistics.calcMean(values),
                 Statistics.calcMedian(values),
-                Statistics.calcStdev(values)
+                Statistics.calcStdev(values),
+                Statistics.calcQuartile(values, 0.25),
+                Statistics.calcQuartile(values, 0.75),
+                Statistics.calcIQR(values)
         ));
 
     }

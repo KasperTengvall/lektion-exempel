@@ -6,19 +6,10 @@ import java.util.Collections;
 public class Statistics {
 
     public static double calcMedian(ArrayList<Double> values) {
-
-        // vi skapar en kopia av values
         ArrayList<Double> sorted = new ArrayList<>(values);
-        // sedan sorterar vi kopian. Annars sorteras ursprungliga datamängden!
         Collections.sort(sorted);
-
-        // Detta funkar, ännu bättre skulle vara att kolla skilt för jämna datamängder
-        // med medelvärde av de två mittersta
-        int midIndex = sorted.size()/2;
-
-        // medianen är dett mittersta värdet i vår sorterade datamängd!
+        int midIndex = sorted.size() / 2;
         return sorted.get(midIndex);
-
     }
 
     public static double calcMean(ArrayList<Double> values) {
@@ -26,7 +17,6 @@ public class Statistics {
         for (int i = 0; i < values.size(); i++) {
             sum += values.get(i);
         }
-
         return sum / values.size();
     }
 
@@ -34,10 +24,29 @@ public class Statistics {
         double mean = calcMean(values);
         double sumDeviation = 0;
         for (int i = 0; i < values.size(); i++) {
-            sumDeviation += Math.pow(values.get(i)-mean, 2);
+            sumDeviation += Math.pow(values.get(i) - mean, 2);
         }
-
         return Math.sqrt(sumDeviation / values.size());
+    }
 
+    public static double calcLQ(ArrayList<Double> values) {
+        return calcQuartile(values, 0.25);
+    }
+
+    public static double calcUQ(ArrayList<Double> values) {
+        return calcQuartile(values, 0.75);
+    }
+
+    public static double calcIQR(ArrayList<Double> values) {
+        double lowerQuartile = calcLQ(values);
+        double upperQuartile = calcUQ(values);
+        return upperQuartile - lowerQuartile;
+    }
+
+    public static double calcQuartile(ArrayList<Double> values, double quartile) {
+        ArrayList<Double> sorted = new ArrayList<>(values);
+        Collections.sort(sorted);
+        int index = (int) Math.ceil(quartile * (sorted.size() + 1)) - 1;
+        return sorted.get(index);
     }
 }
