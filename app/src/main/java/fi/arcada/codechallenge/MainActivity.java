@@ -1,5 +1,6 @@
 package fi.arcada.codechallenge;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -67,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
         DataItemViewAdapter adapter = new DataItemViewAdapter(this, dataItems);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    public void openSettings(View view) {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 
     public void calculate(View view) {
